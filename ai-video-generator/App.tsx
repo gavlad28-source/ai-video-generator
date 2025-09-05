@@ -15,9 +15,9 @@ function App() {
 
   const handleGenerate = useCallback(async (prompt: string, image?: { base64: string; mimeType: string; }) => {
     setGenerationState(GenerationState.GENERATING);
-    setProgressMessage('Initializing video generation...');
     setVideoUrl(null);
     setError(null);
+    setProgressMessage('Initializing video generation...');
 
     try {
       const videoBlob = await generateVideoFromPrompt(prompt, image, (message) => {
