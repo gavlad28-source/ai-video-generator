@@ -33,9 +33,19 @@ function App() {
       setProgressMessage('Video generated successfully!');
     } catch (err) {
       console.error(err);
-      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred.';
+      // More robust error message extraction
+      let errorMessage = 'An unknown error occurred.';
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (err && typeof (err as any).message === 'string') {
+        errorMessage = (err as any).message;
+      } else if (typeof err === 'string') {
+        errorMessage = err;
+      }
+
       setError(errorMessage);
       setGenerationState(GenerationState.ERROR);
+      setProgressMessage(''); // Clear progress message on error
     }
   }, []);
 

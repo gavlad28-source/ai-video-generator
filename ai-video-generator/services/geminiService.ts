@@ -109,7 +109,7 @@ export const generateVideoFromPrompt = async (
       if (isRateLimitError(err)) {
           throw new Error("The AI is currently busy. Please wait a few moments before trying again. (Rate limit exceeded)");
       }
-      const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred during video generation.';
-      throw new Error(errorMessage);
+      // Re-throw the original error to preserve its details for the UI to handle.
+      throw err;
   }
 };
